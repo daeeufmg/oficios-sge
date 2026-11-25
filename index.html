@@ -78,8 +78,11 @@ details[open]{padding-bottom:14px}
 details summary{cursor:pointer;font-size:14px;font-weight:500;color:var(--char);min-height:44px;display:flex;align-items:center}
 #warn{margin:0 0 16px;display:grid;gap:8px}
 #warn div{background:var(--yellow);color:var(--yInk);font-size:14px;line-height:1.45;padding:10px 14px;border-radius:8px}
-.out{position:sticky;top:16px}
-@media(max-width:1023px){.out{position:static}}
+.out{position:sticky;top:16px;display:flex;flex-direction:column;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px)}
+.out #warn{flex:none;max-height:28vh;overflow-y:auto}
+.out .bar{flex:none}
+.out .sheet{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+@media(max-width:1023px){.out{position:static;display:block;max-height:none}.out .sheet{overflow:visible}.out #warn{max-height:none}}
 .bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center}
 .bar span{font-size:13px;color:var(--slate)}
 .sheet{background:#fff;color:#111;font:15px/1.45 Calibri,Carlito,Arial,sans-serif;padding:clamp(20px,5vw,56px) clamp(18px,5.5vw,64px);border-radius:4px;border:1px solid var(--hair);box-shadow:rgba(15,15,15,.08) 0 4px 12px;max-width:820px;overflow-wrap:anywhere;scroll-margin-top:16px}
@@ -308,7 +311,7 @@ function build(){
 function warnings(){
   const w=[],f=S.f;
   if(!f.daNum.trim())w.push('Falta o número do ofício do DA.');
-  if(!f.daData)w.push('Falta a data da indicação do DA (é dela que conta o mandato).');
+  if(!f.daData)w.push('Falta a data da indicação do DA.');
   if(!f.destNome.trim())w.push('Falta o nome do chefe ou coordenador.');
   if(f.tipo!=='outro'&&!f.area.trim())w.push('Falta o departamento, curso ou programa.');
   const groups=f.modo==='alt'?['nova','mant']:['ind'];
