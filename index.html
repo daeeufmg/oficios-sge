@@ -3,80 +3,107 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f6f5f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191919" media="(prefers-color-scheme: dark)">
 <title>Ofícios de nomeação discente</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Carlito:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Carlito:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* VOICE: formal, calmo, de secretaria — ferramenta de trabalho, sem enfeite.
-   IDEA: a folha do ofício SEI ao lado do formulário, sendo preenchida ao vivo.
-   PICTURE: a própria folha A4 em pré-visualização, grande, à direita.
-   COLOUR and TYPE: papel branco sobre cinza-pedra, tinta preta, vermelho UFMG #a3122a como acento; Inter na interface, Carlito (métrica Calibri) na folha.
-   LAYOUT: formulário em uma coluna à esquerda, folha à direita; abaixo de 900px empilha. */
-:root{color-scheme:light dark;--bg:light-dark(#e7e8ea,#17181a);--panel:light-dark(#ffffff,#222326);--ink:light-dark(#16171a,#ececee);--mute:light-dark(#5d6168,#a2a6ad);--line:light-dark(#d3d5d9,#3a3c41);--acc:light-dark(#a3122a,#ff6b7d);--field:light-dark(#f7f7f8,#1b1c1f);--warn:light-dark(#fff3d6,#3a2f12);--warnInk:light-dark(#6b4a00,#ffd88a)}
+/* VOICE: sóbrio, de documento — segue o DESIGN.md do Notion.
+   IDEA: um editor de página do Notion: formulário à esquerda, a folha do ofício à direita.
+   PICTURE: a folha do ofício, preenchida ao vivo enquanto se digita.
+   COLOUR and TYPE: canvas branco, surface #f6f5f4, hairlines quentes, tinta #1a1a1a, roxo #5645d4 só no botão principal; Inter.
+   LAYOUT: coluna de formulário de 460px e a folha ao lado; empilha abaixo de 1024px. */
+:root{color-scheme:light dark;
+--canvas:light-dark(#ffffff,#202020);--surface:light-dark(#f6f5f4,#191919);--hair:light-dark(#e5e3df,#2f2f2f);--hairS:light-dark(#c8c4be,#4a4946);
+--ink:light-dark(#1a1a1a,#ebeae7);--char:light-dark(#37352f,#d6d4cf);--slate:light-dark(#5d5b54,#a4a097);--steel:light-dark(#787671,#8f8c85);--muted:light-dark(#a4a097,#6b6862);
+--pri:light-dark(#5645d4,#7b6ff0);--priP:light-dark(#4534b3,#5645d4);--link:light-dark(#0075de,#5aa9f0);
+--dark:light-dark(#000000,#ebeae7);--onDark:light-dark(#ffffff,#000000);
+--yellow:light-dark(#fef7d6,#3a3320);--yInk:light-dark(#37352f,#f5e7b0);--mint:light-dark(#d9f3e1,#1d3326);--mInk:light-dark(#1f5c33,#a8e5bb);--lav:light-dark(#e6e0f5,#29243d)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;overflow-x:clip}
-header{padding:22px max(4vw,16px) 14px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;justify-content:space-between}
-h1{font-size:clamp(24px,3vw,34px);line-height:1.05;margin:0;letter-spacing:-.01em;text-wrap:balance}
-header p{margin:0;color:var(--mute);font-size:14px}
-main{display:grid;grid-template-columns:minmax(0,460px) minmax(0,1fr);gap:24px;padding:0 max(4vw,16px) 48px;align-items:start}
-@media(max-width:900px){main{grid-template-columns:minmax(0,1fr)}}
-.form{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
-.form h2{font-size:13px;font-weight:600;color:var(--acc);margin:22px 0 10px;padding-top:16px;border-top:1px solid var(--line)}
+html{-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--surface);color:var(--ink);font:16px/1.55 Inter,-apple-system,system-ui,"Segoe UI",Helvetica,sans-serif;overflow-x:clip;touch-action:manipulation}
+.skip{position:absolute;left:16px;top:-60px;background:var(--dark);color:var(--onDark);padding:10px 14px;border-radius:8px;z-index:9;text-decoration:none;font-size:14px}
+.skip:focus{top:12px}
+header{max-width:1280px;margin:0 auto;padding:40px 32px 24px;display:flex;flex-wrap:wrap;gap:6px 24px;align-items:baseline;justify-content:space-between}
+h1{font-size:clamp(26px,3vw,36px);font-weight:600;line-height:1.2;letter-spacing:-.5px;margin:0;text-wrap:balance}
+header p{margin:0;color:var(--slate);font-size:14px}
+main{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:minmax(0,460px) minmax(0,1fr);gap:32px;padding:0 32px 64px;align-items:start}
+@media(max-width:1023px){main{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){header{padding:28px 16px 16px}main{padding:0 16px 48px;gap:24px}}
+.form{background:var(--canvas);border:1px solid var(--hair);border-radius:12px;padding:24px}
+.form h2{font-size:16px;font-weight:600;line-height:1.4;color:var(--ink);margin:28px 0 12px;padding-top:24px;border-top:1px solid var(--hair)}
 .form h2:first-child{margin-top:0;padding-top:0;border:0}
-label{display:block;font-size:13px;font-weight:500;color:var(--mute);margin:10px 0 4px}
-input,select,textarea{width:100%;font:16px/1.3 Inter,system-ui,sans-serif;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:6px;padding:9px 10px;min-height:44px}
-textarea{min-height:110px;resize:vertical;font-size:14px}
-input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
-.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 10px}
-.seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.seg label{flex:1;margin:0;text-align:center;padding:10px 6px;cursor:pointer;font-size:14px;color:var(--ink);min-height:44px}
-.seg input{position:absolute;opacity:0;width:1px;height:1px}
-.seg label:has(input:checked){background:var(--acc);color:#fff}
-.seg label:has(input:focus-visible){outline:2px solid var(--acc);outline-offset:-3px}
-button{font:600 14px/1 Inter,system-ui,sans-serif;min-height:44px;padding:0 16px;border-radius:6px;border:1px solid var(--line);background:var(--field);color:var(--ink);cursor:pointer}
-button.pri{background:var(--acc);border-color:var(--acc);color:#fff}
-.drop{display:flex;flex-direction:column;gap:4px;align-items:center;text-align:center;border:2px dashed var(--line);border-radius:8px;padding:18px 12px;margin:0 0 6px;cursor:pointer;color:var(--ink);font-size:14px}
-.drop:hover,.drop.over,.drop:focus-within{border-color:var(--acc)}
+.form h2 .n{color:var(--steel);font-weight:500;margin-right:6px}
+label{display:block;font-size:14px;font-weight:500;color:var(--char);margin:14px 0 6px}
+input,select,textarea{width:100%;font:16px/1.4 inherit;font-family:inherit;color:var(--ink);background-color:var(--canvas);border:1px solid var(--hairS);border-radius:8px;padding:10px 14px;min-height:44px;transition:border-color .15s,box-shadow .15s}
+input::placeholder,textarea::placeholder{color:var(--muted)}
+textarea{min-height:110px;resize:vertical;font-size:14px;line-height:1.5}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--pri);box-shadow:0 0 0 1px var(--pri)}
+input[inputmode=numeric]{font-variant-numeric:tabular-nums}
+.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 12px}
+.tabs{display:flex;gap:20px;border-bottom:1px solid var(--hair)}
+.tabs label{margin:0;padding:10px 0;cursor:pointer;font-size:14px;font-weight:500;color:var(--steel);border-bottom:2px solid transparent;margin-bottom:-1px;min-height:44px;display:flex;align-items:center;transition:color .15s,border-color .15s}
+.tabs label:hover{color:var(--ink)}
+.tabs input{position:absolute;opacity:0;width:1px;height:1px}
+.tabs label:has(input:checked){color:var(--ink);border-bottom-color:var(--ink)}
+.tabs label:has(input:focus-visible){outline:2px solid var(--pri);outline-offset:2px;border-radius:4px}
+button{font:500 14px/1.3 inherit;font-family:inherit;min-height:44px;padding:10px 18px;border-radius:8px;border:1px solid var(--hairS);background:transparent;color:var(--ink);cursor:pointer;transition:background-color .15s,border-color .15s,color .15s}
+button:hover{background:var(--surface)}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+button.pri{background:var(--pri);border-color:var(--pri);color:#fff}
+button.pri:hover,button.pri:active{background:var(--priP);border-color:var(--priP)}
+button.dark{background:var(--dark);border-color:var(--dark);color:var(--onDark)}
+button.dark:hover{opacity:.88}
+button.ghost{border-color:transparent;padding:6px 10px;min-height:32px;border-radius:6px;color:var(--slate)}
+button.ghost:hover{background:var(--surface);color:var(--ink)}
+.hint{font-size:13px;line-height:1.45;color:var(--slate);margin:8px 0 0}
+.drop{display:flex;flex-direction:column;gap:4px;align-items:center;text-align:center;background:var(--surface);border:1px dashed var(--hairS);border-radius:12px;padding:20px 16px;margin:0 0 4px;cursor:pointer;color:var(--ink);font-size:14px;font-weight:500;transition:border-color .15s,background-color .15s}
+.drop:hover,.drop.over,.drop:focus-within{border-color:var(--pri);background:var(--lav)}
 .drop input{position:absolute;opacity:0;width:1px;height:1px}
-.drop span{color:var(--mute);font-size:13px}
-.drop.ok{border-style:solid;border-color:var(--acc)}
-.hint{font-size:13px;color:var(--mute);margin:6px 0 0}
-fieldset.pair{border:1px solid var(--line);border-radius:8px;padding:6px 12px 12px;margin:0 0 10px}
-fieldset.pair legend{font-size:13px;font-weight:600;padding:0 6px;display:flex;gap:10px;align-items:center}
-fieldset.pair legend button{min-height:32px;padding:0 10px;font-size:12px;font-weight:500}
-.who{font-size:12px;font-weight:600;margin:10px 0 2px;color:var(--ink)}
-.m3{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:6px}
-.m3 input,.m3 select{font-size:16px;padding:7px 8px}
-.grp-title{font-size:12px;font-weight:700;margin:14px 0 6px}
+.drop span{color:var(--slate);font-size:13px;font-weight:400}
+.drop.ok{border-style:solid;border-color:transparent;background:var(--mint)}
+.drop.ok span{color:var(--mInk)}
+fieldset.pair{border:1px solid var(--hair);border-radius:12px;padding:8px 16px 16px;margin:0 0 12px}
+fieldset.pair legend{font-size:13px;font-weight:600;padding:0 6px;display:flex;gap:8px;align-items:center;color:var(--char)}
+.who{font-size:12px;font-weight:500;margin:12px 0 6px;color:var(--steel)}
+.m3{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:8px}
+.grp-title{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--steel);margin:18px 0 8px}
 .only-alt,.only-outro{display:none}
 .form.alt .only-alt{display:block}.form.alt .only-ind{display:none}
 .form.outro .only-outro{display:block}.form.outro .not-outro{display:none}
-details summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--acc);min-height:32px;display:flex;align-items:center}
-#warn{margin:0 0 12px}
-#warn div{background:var(--warn);color:var(--warnInk);font-size:14px;padding:8px 12px;border-radius:6px;margin-bottom:6px}
-.out{position:sticky;top:12px}
-@media(max-width:900px){.out{position:static}}
-.bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center}
-.bar span{font-size:13px;color:var(--mute)}
-.sheet{background:#fff;color:#111;font:15px/1.45 Calibri,Carlito,Arial,sans-serif;padding:clamp(20px,5vw,56px) clamp(18px,5.5vw,64px);border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.12),0 12px 32px rgba(0,0,0,.14);max-width:820px;overflow-wrap:anywhere}
+details{border:1px solid var(--hair);border-radius:8px;padding:0 14px}
+details[open]{padding-bottom:14px}
+details summary{cursor:pointer;font-size:14px;font-weight:500;color:var(--char);min-height:44px;display:flex;align-items:center}
+#warn{margin:0 0 16px;display:grid;gap:8px}
+#warn div{background:var(--yellow);color:var(--yInk);font-size:14px;line-height:1.45;padding:10px 14px;border-radius:8px}
+.out{position:sticky;top:16px}
+@media(max-width:1023px){.out{position:static}}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center}
+.bar span{font-size:13px;color:var(--slate)}
+.sheet{background:#fff;color:#111;font:15px/1.45 Calibri,Carlito,Arial,sans-serif;padding:clamp(20px,5vw,56px) clamp(18px,5.5vw,64px);border-radius:4px;border:1px solid var(--hair);box-shadow:rgba(15,15,15,.08) 0 4px 12px;max-width:820px;overflow-wrap:anywhere;scroll-margin-top:16px}
 .sheet .hd{text-align:center;font-weight:700;margin-bottom:10px;font-size:14px}
-.sheet .ref{font-size:13px;margin-top:24px;border-top:1px solid #bbb;padding-top:6px}
-.ph{background:#ffe7a6;padding:0 3px;border-radius:2px}
-#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:6px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
-#toast.on{opacity:1}
-@media(prefers-reduced-motion:reduce){#toast{transition:none}}
-@media(max-width:600px){.row,.m3{grid-template-columns:minmax(0,1fr)}}
+.sheet .ref{font-size:13px;margin-top:24px;border-top:1px solid #ccc;padding-top:6px}
+.ph{background:#fef7d6;color:#793400;padding:0 3px;border-radius:3px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,8px);background:var(--dark);color:var(--onDark);padding:8px 8px 8px 16px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .15s,transform .15s;pointer-events:none;display:flex;gap:12px;align-items:center;box-shadow:rgba(15,15,15,.16) 0 16px 48px -8px;max-width:calc(100vw - 32px)}
+#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+#toast button{min-height:36px;padding:6px 12px;border:0;background:rgba(127,127,127,.25);color:inherit}
+#toast span{padding:6px 0}
+@media(prefers-reduced-motion:reduce){#toast,input,button,.tabs label,.drop{transition:none}}
+@media(max-width:600px){.row,.m3{grid-template-columns:minmax(0,1fr)}.form{padding:18px}}
 </style>
+
 </head>
 <body>
+<a class="skip" href="#sheet">Pular para o ofício</a>
 <header>
   <h1>Ofícios de nomeação discente</h1>
   <p>Secretaria Geral · Escola de Engenharia UFMG</p>
 </header>
 <main>
 <form class="form" id="form" autocomplete="off">
-  <h2>1. Ofício do DA</h2>
+  <h2><span class="n">1</span>Ofício do DA</h2>
   <label class="drop" id="drop" for="daFile">
     <input type="file" id="daFile" accept="application/pdf,.pdf">
     <b>Anexar o PDF do ofício do DA</b>
@@ -84,21 +111,21 @@ details summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--acc);m
   </label>
   <label for="daText">…ou cole o texto do ofício do DA</label>
   <textarea id="daText" placeholder="OFÍCIO N.º 39/2026/DAEE … Órgão Colegiado: … CADEIRA 1: Titular: …"></textarea>
-  <div class="bar" style="margin:8px 0 0"><button type="button" class="pri" id="parse">Preencher a partir do ofício do DA</button></div>
-  <p class="hint">A página abre com um exemplo fictício. Use "Novo ofício" para limpar.</p>
+  <div class="bar" style="margin:8px 0 0"><button type="button" class="dark" id="parse">Preencher a partir do ofício do DA</button></div>
+  <p class="hint">A página abre com um exemplo fictício. Use “Novo ofício” para limpar.</p>
   <p class="hint" id="parseMsg">Preenche órgão, número e data do ofício do DA, nomes, matrículas e cursos. Confira depois.</p>
   <div class="row">
-    <div><label for="daNum">Nº do ofício do DA</label><input id="daNum" data-f="daNum" placeholder="39/2026/DAEE"></div>
+    <div><label for="daNum">Nº do ofício do DA</label><input id="daNum" data-f="daNum" placeholder="ex.: 39/2026/DAEE…"></div>
     <div><label for="daData">Data da indicação do DA</label><input id="daData" data-f="daData" type="date"></div>
   </div>
 
-  <h2>2. Tipo de ofício</h2>
-  <div class="seg" role="radiogroup" aria-label="Tipo de ofício">
+  <h2><span class="n">2</span>Tipo de ofício</h2>
+  <div class="tabs" role="radiogroup" aria-label="Tipo de ofício">
     <label><input type="radio" name="modo" value="ind" data-f="modo">Nova indicação</label>
     <label><input type="radio" name="modo" value="alt" data-f="modo">Alteração (renúncia/troca)</label>
   </div>
 
-  <h2>3. Órgão e destinatário</h2>
+  <h2><span class="n">3</span>Órgão e destinatário</h2>
   <label for="tipo">Órgão colegiado</label>
   <select id="tipo" data-f="tipo">
     <option value="camara">Câmara Departamental</option>
@@ -108,31 +135,31 @@ details summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--acc);m
   </select>
   <div class="not-outro">
     <label for="area" id="areaLbl">Departamento / curso / programa</label>
-    <input id="area" data-f="area" list="areas" placeholder="Engenharia Elétrica">
+    <input id="area" data-f="area" list="areas" placeholder="ex.: Engenharia Elétrica…">
   </div>
   <div class="only-outro">
-    <label for="orgaoLivre">Nome completo do órgão</label><input id="orgaoLivre" data-f="orgaoLivre" placeholder="Congregação da Escola de Engenharia">
-    <label for="cargoLivre">Cargo do destinatário</label><input id="cargoLivre" data-f="cargoLivre" placeholder="Presidente da Congregação">
+    <label for="orgaoLivre">Nome completo do órgão</label><input id="orgaoLivre" data-f="orgaoLivre" placeholder="ex.: Congregação da Escola de Engenharia…">
+    <label for="cargoLivre">Cargo do destinatário</label><input id="cargoLivre" data-f="cargoLivre" placeholder="ex.: Presidente da Congregação…">
   </div>
   <label for="res">Resolução da Congregação (só Câmara Departamental, se houver)</label>
-  <input id="res" data-f="res" placeholder="ex.: 07/2007">
+  <input id="res" data-f="res" placeholder="ex.: 07/2007…">
   <div class="row">
     <div><label for="trat">Tratamento</label><select id="trat" data-f="trat"><option value="m">Ao Senhor · Prof.</option><option value="f">À Senhora · Profa.</option></select></div>
     <div><label for="destNome">Nome do(a) chefe/coordenador(a)</label><input id="destNome" data-f="destNome"></div>
   </div>
 
-  <h2>4. Representantes</h2>
+  <h2><span class="n">4</span>Representantes</h2>
   <div id="pairs"></div>
 
-  <h2>5. Dados do ofício da SGE</h2>
+  <h2><span class="n">5</span>Dados do ofício da SGE</h2>
   <div class="row">
-    <div><label for="numero">Nº (deixe vazio se o SEI numerar)</label><input id="numero" data-f="numero" placeholder="494/2026"></div>
+    <div><label for="numero">Nº (deixe vazio se o SEI numerar)</label><input id="numero" data-f="numero" placeholder="ex.: 494/2026…"></div>
     <div><label for="data">Data do ofício</label><input id="data" data-f="data" type="date"></div>
   </div>
   <label for="demais">Demais indicações continuam vigentes no ofício… (opcional)</label>
-  <input id="demais" data-f="demais" placeholder="1004/2025/ENGENHARIA-SGE/UFMG">
+  <input id="demais" data-f="demais" placeholder="ex.: 1004/2025/ENGENHARIA-SGE/UFMG…">
 
-  <h2>Itens fixos</h2>
+  <h2><span class="n">6</span>Itens fixos</h2>
   <details><summary>Signatário, cópia e processo</summary>
     <label for="dir">Diretor(a) que assina</label><input id="dir" data-c="dir">
     <label for="dirCargo">Cargo</label><input id="dirCargo" data-c="dirCargo">
@@ -149,12 +176,12 @@ details summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--acc);m
   <div class="bar">
     <button type="button" class="pri" id="cpCorpo">Copiar corpo para o SEI</button>
     <button type="button" id="cpTudo">Copiar ofício inteiro</button>
-    <span>Cabeçalho, número, assinatura e rodapé o SEI já gera.</span>
+    <span>Cabeçalho, número, assinatura e rodapé, o SEI já gera.</span>
   </div>
   <div class="sheet" id="sheet"></div>
 </section>
 </main>
-<div id="toast" role="status"></div>
+<div id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button type="button" id="toastBtn" hidden>Desfazer</button></div>
 <datalist id="areas"></datalist>
 
 <script>
@@ -168,7 +195,8 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fold=s=>String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim();
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
-const longDate=iso=>{if(!iso)return null;const[y,m,d]=iso.split('-').map(Number);return d+' de '+MES[m-1]+' de '+y};
+const DF=new Intl.DateTimeFormat('pt-BR',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+const longDate=iso=>{if(!iso)return null;const[y,m,d]=iso.split('-').map(Number);return DF.format(new Date(Date.UTC(y,m-1,d)))};
 const P=()=>({tNome:'',tMat:'',tNiv:'g',tCur:'',sNome:'',sMat:'',sNiv:'g',sCur:'',ini:''});
 const pair=(t,tm,tc,s,sm,sc,niv='g')=>({tNome:t,tMat:tm,tNiv:niv,tCur:tc,sNome:s,sMat:sm,sNiv:niv,sCur:sc,ini:''});
 
@@ -190,20 +218,20 @@ const GN={ind:'',ant:'Representação anterior',nova:'Nova representação',mant
 function personRow(g,i,who,p){
   const pre=who==='t'?'t':'s';
   return '<div class="who">'+(who==='t'?'Titular':'Suplente')+'</div><div class="m3">'+
-   '<input aria-label="Nome do '+(who==='t'?'titular':'suplente')+'" placeholder="Nome completo" data-g="'+g+'" data-i="'+i+'" data-k="'+pre+'Nome" value="'+esc(p[pre+'Nome'])+'">'+
-   '<input aria-label="Matrícula" placeholder="Matrícula" inputmode="numeric" data-g="'+g+'" data-i="'+i+'" data-k="'+pre+'Mat" value="'+esc(p[pre+'Mat'])+'">'+
+   '<input aria-label="Nome do '+(who==='t'?'titular':'suplente')+'" placeholder="Nome completo…" spellcheck="false" data-g="'+g+'" data-i="'+i+'" data-k="'+pre+'Nome" value="'+esc(p[pre+'Nome'])+'">'+
+   '<input aria-label="Matrícula" placeholder="Matrícula…" spellcheck="false" inputmode="numeric" data-g="'+g+'" data-i="'+i+'" data-k="'+pre+'Mat" value="'+esc(p[pre+'Mat'])+'">'+
    '<select aria-label="Nível" data-g="'+g+'" data-i="'+i+'" data-k="'+pre+'Niv"><option value="g"'+(p[pre+'Niv']==='g'?' selected':'')+'>Graduação</option><option value="p"'+(p[pre+'Niv']==='p'?' selected':'')+'>Pós-Graduação</option></select>'+
-   '<input aria-label="Curso" placeholder="Curso (ex.: Engenharia Elétrica)" list="areas" data-g="'+g+'" data-i="'+i+'" data-k="'+pre+'Cur" value="'+esc(p[pre+'Cur'])+'">'+
+   '<input aria-label="Curso" placeholder="Curso, ex.: Engenharia Elétrica…" list="areas" data-g="'+g+'" data-i="'+i+'" data-k="'+pre+'Cur" value="'+esc(p[pre+'Cur'])+'">'+
    '</div>';
 }
 function renderPairs(){
   const groups=S.f.modo==='alt'?['ant','nova','mant']:['ind'];
   $('#pairs').innerHTML=groups.map(g=>(GN[g]?'<div class="grp-title">'+GN[g]+'</div>':'')+
-    S.g[g].map((p,i)=>'<fieldset class="pair"><legend>Cadeira '+(i+1)+' <button type="button" data-del="'+g+'" data-i="'+i+'">remover</button></legend>'+
+    S.g[g].map((p,i)=>'<fieldset class="pair"><legend>Cadeira '+(i+1)+' <button type="button" class="ghost" data-del="'+g+'" data-i="'+i+'">remover</button></legend>'+
       personRow(g,i,'t',p)+personRow(g,i,'s',p)+
       (g==='mant'?'<label>Início do mandato do titular</label><input type="date" data-g="'+g+'" data-i="'+i+'" data-k="ini" value="'+esc(p.ini)+'">':'')+
     '</fieldset>').join('')+
-    '<button type="button" data-add="'+g+'">+ Adicionar cadeira'+(GN[g]?' ('+GN[g].toLowerCase()+')':'')+'</button>').join('');
+    '<button type="button" class="ghost" data-add="'+g+'">+ Adicionar cadeira'+(GN[g]?' ('+GN[g].toLowerCase()+')':'')+'</button>').join('');
 }
 
 function orgInfo(){
@@ -396,7 +424,9 @@ $('#daFile').addEventListener('change',e=>{handleFile(e.target.files[0]);e.targe
 ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over')}));
 drop.addEventListener('drop',e=>handleFile(e.dataTransfer.files[0]));
 
-function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('on'),2200)}
+let undoFn=null;
+function toast(t,undo){const el=$('#toast'),b=$('#toastBtn');$('#toastMsg').textContent=t;undoFn=undo||null;b.hidden=!undo;el.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>{el.classList.remove('on');undoFn=null},undo?6000:2400)}
+$('#toastBtn').addEventListener('click',()=>{if(undoFn){undoFn();undoFn=null}$('#toast').classList.remove('on')});
 async function copy(html){
   const tmp=document.createElement('div');tmp.innerHTML=html;tmp.querySelectorAll('.ph').forEach(s=>s.replaceWith(s.textContent));
   const clean=tmp.innerHTML,text=tmp.innerText||tmp.textContent;
@@ -406,9 +436,11 @@ async function copy(html){
 $('#cpCorpo').addEventListener('click',()=>copy(build().corpo));
 $('#cpTudo').addEventListener('click',()=>copy(build().full));
 $('#novo').addEventListener('click',()=>{
+  const prev=JSON.stringify(S),prevTxt=$('#daText').value;
   S.f={modo:'ind',tipo:'camara',area:'',orgaoLivre:'',cargoLivre:'',res:'',trat:'m',destNome:'',daNum:'',daData:'',numero:'',data:today(),demais:''};
   S.g={ind:[P()],ant:[P()],nova:[P()],mant:[]};$('#daText').value='';drop.classList.remove('ok');dropMsg.textContent='Clique ou arraste o arquivo aqui. A página lê e preenche tudo.';msg('Preenche órgão, número e data do ofício do DA, nomes, matrículas e cursos. Confira depois.');
   fillFields();renderPairs();update();window.scrollTo(0,0);
+  toast('Ofício limpo.',()=>{S=JSON.parse(prev);$('#daText').value=prevTxt;fillFields();renderPairs();update()});
 });
 
 fillFields();renderPairs();update();
